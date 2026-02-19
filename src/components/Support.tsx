@@ -36,11 +36,11 @@ export function Support() {
             Open an Issue on GitHub
           </a>
           <a
-            href="mailto:support@timegpt.org"
+            href="mailto:timegpt@ichiva.no"
             className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white px-6 py-3 text-sm font-medium transition-colors"
           >
             <Mail className="w-4 h-4" />
-            support@timegpt.org
+            timegpt@ichiva.no
           </a>
         </motion.div>
       </div>
