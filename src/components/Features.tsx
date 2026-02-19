@@ -7,6 +7,7 @@ import {
   ToggleRight,
   RefreshCw,
 } from "lucide-react";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 
 const features = [
   {
@@ -48,15 +49,17 @@ const features = [
 ];
 
 export function Features() {
+  const reduced = useReducedMotion();
+
   return (
     <section id="features" className="py-24 scroll-mt-20">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
+          initial={reduced ? { opacity: 1 } : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: reduced ? 0 : 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
             Everything you need
@@ -71,13 +74,13 @@ export function Features() {
             <motion.div
               key={feature.title}
               className="p-6 rounded-2xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 hover:border-indigo-300 dark:hover:border-indigo-600/50 transition-colors"
-              initial={{ opacity: 0, y: 20 }}
+              initial={reduced ? { opacity: 1 } : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
+              transition={{ duration: reduced ? 0 : 0.4, delay: reduced ? 0 : i * 0.08 }}
             >
               <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center mb-4">
-                <feature.icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                <feature.icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" aria-hidden="true" />
               </div>
               <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                 {feature.title}
