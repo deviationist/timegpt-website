@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# TimeGPT Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Promo/landing page for **TimeGPT** — a Chrome extension that adds timestamps to ChatGPT messages and conversations.
 
-Currently, two official plugins are available:
+## What's in here
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A single-page site built with React, featuring:
 
-## React Compiler
+- **Hero** — headline, tagline, and CTA to the Chrome Web Store
+- **Features** — overview of what TimeGPT does (message timestamps, sidebar timestamps, format options, etc.)
+- **How It Works** — explains that ChatGPT already has timestamp data, TimeGPT just surfaces it
+- **Privacy** — zero data collection, no external requests, minimal permissions
+- **FAQ** — common questions
+- **Changelog** — version history
+- **Support** — contact info
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the ESLint configuration
+- [Vite](https://vite.dev/) + [React 19](https://react.dev/) + TypeScript
+- [Tailwind CSS 4](https://tailwindcss.com/)
+- [Motion](https://motion.dev/) (Framer Motion) for animations
+- [Lucide](https://lucide.dev/) for icons
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Command             | Description                        |
+| ------------------- | ---------------------------------- |
+| `npm run dev`       | Start dev server with HMR          |
+| `npm run build`     | Type-check and build for production |
+| `npm run preview`   | Preview the production build       |
+| `npm run lint`      | Run ESLint                         |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project structure
+
+```
+src/
+├── App.tsx                 # Main app, composes all sections
+├── main.tsx                # Entry point
+└── components/
+    ├── Hero.tsx
+    ├── Features.tsx
+    ├── HowItWorks.tsx
+    ├── Privacy.tsx
+    ├── FAQ.tsx
+    ├── Changelog.tsx
+    ├── Support.tsx
+    └── Logo.tsx
 ```
