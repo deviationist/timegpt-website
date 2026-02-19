@@ -1,111 +1,169 @@
-import { useState } from "react";
-import { BrandingShowcase } from "./components/BrandingShowcase";
+import { useState, useEffect } from "react";
 import { LogoHorizontal } from "./components/Logo";
-import {
-  Moon,
-  Sun,
-  Github,
-  Download,
-} from "lucide-react";
+import { Hero } from "./components/Hero";
+import { Features } from "./components/Features";
+import { HowItWorks } from "./components/HowItWorks";
+import { Privacy } from "./components/Privacy";
+import { FAQ } from "./components/FAQ";
+import { Changelog } from "./components/Changelog";
+import { Support } from "./components/Support";
+import { Moon, Sun, Download, Menu, X } from "lucide-react";
+
+const CHROME_STORE_URL = "#";
+
+function useDarkMode() {
+  const [isDark, setIsDark] = useState(() => {
+    const stored = localStorage.getItem("theme");
+    if (stored === "dark") return true;
+    if (stored === "light") return false;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add("dark");
+      root.classList.remove("light");
+    } else {
+      root.classList.remove("dark");
+      root.classList.add("light");
+    }
+  }, [isDark]);
+
+  const toggle = () => {
+    setIsDark((prev) => {
+      const next = !prev;
+      localStorage.setItem("theme", next ? "dark" : "light");
+      return next;
+    });
+  };
+
+  return [isDark, toggle] as const;
+}
+
+const navLinks = [
+  { href: "#features", label: "Features" },
+  { href: "#how-it-works", label: "How It Works" },
+  { href: "#faq", label: "FAQ" },
+];
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDark, toggleDark] = useDarkMode();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div
-      className={`min-h-screen transition-colors duration-300 ${isDarkMode ? "bg-slate-950 text-white" : "bg-slate-50 text-slate-900"}`}
-    >
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300">
       {/* Navigation */}
-      <nav
-        className={`sticky top-0 z-50 backdrop-blur-md border-b transition-colors duration-300 ${isDarkMode ? "bg-slate-950/80 border-slate-800" : "bg-white/80 border-slate-200"}`}
-      >
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <LogoHorizontal size={32} />
+      <nav className="sticky top-0 z-50 backdrop-blur-md border-b bg-white/80 dark:bg-slate-950/80 border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          <a href="#" className="shrink-0">
+            <LogoHorizontal size={28} />
+          </a>
 
-          <div className="flex items-center gap-6">
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-3">
             <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className={`p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors`}
+              onClick={toggleDark}
+              className="p-2 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               aria-label="Toggle theme"
             >
-              {isDarkMode ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
+              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </button>
-            <div className="hidden md:flex items-center gap-6 text-sm font-semibold">
-              <a
-                href="#"
-                className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-              >
-                Documentation
-              </a>
-              <a
-                href="#"
-                className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-              >
-                Features
-              </a>
-              <a
-                href="#"
-                className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2"
-              >
-                <Github className="w-4 h-4" /> GitHub
-              </a>
-            </div>
-            <button className="bg-slate-900 dark:bg-indigo-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-slate-800 dark:hover:bg-indigo-500 transition-all flex items-center gap-2">
-              <Download className="w-4 h-4" /> Install Extension
+
+            <a
+              href={CHROME_STORE_URL}
+              className="hidden sm:inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              Add to Chrome
+            </a>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-full text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-6 py-4 space-y-3">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href={CHROME_STORE_URL}
+              className="sm:hidden inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors mt-2"
+            >
+              <Download className="w-4 h-4" />
+              Add to Chrome
+            </a>
+          </div>
+        )}
       </nav>
 
       {/* Main Content */}
-      <main className="relative">
-        {/* Background Gradients */}
-        <div className="absolute top-0 inset-x-0 h-[600px] overflow-hidden pointer-events-none -z-10">
-          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-indigo-500/10 dark:bg-indigo-500/5 blur-[120px] rounded-full"></div>
-          <div className="absolute top-48 left-1/3 -translate-x-1/2 w-[600px] h-[600px] bg-teal-500/10 dark:bg-teal-500/5 blur-[100px] rounded-full"></div>
-        </div>
-
-        <BrandingShowcase />
+      <main>
+        <Hero />
+        <Features />
+        <HowItWorks />
+        <Privacy />
+        <FAQ />
+        <Changelog />
+        <Support />
       </main>
 
       {/* Footer */}
-      <footer
-        className={`py-12 border-t transition-colors duration-300 ${isDarkMode ? "bg-slate-950 border-slate-800" : "bg-white border-slate-200"}`}
-      >
-        <div className="max-w-7xl mx-auto px-6 text-center space-y-6">
+      <footer className="py-12 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 transition-colors duration-300">
+        <div className="max-w-6xl mx-auto px-6 text-center space-y-6">
           <div className="flex flex-col items-center gap-4">
             <LogoHorizontal size={24} />
             <p className="text-sm text-slate-500 max-w-sm">
-              Helping AI users keep track of time, one message
-              at a time. Built for the ChatGPT community.
+              Helping AI users keep track of time, one message at a time.
             </p>
           </div>
-          <div className="flex justify-center gap-8 text-sm text-slate-400">
-            <a
-              href="#"
-              className="hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-            >
-              Privacy Policy
+          <div className="flex flex-wrap justify-center gap-8 text-sm text-slate-400">
+            <a href="#features" className="hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+              Features
             </a>
-            <a
-              href="#"
-              className="hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-            >
-              Terms of Service
+            <a href="#how-it-works" className="hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+              How It Works
             </a>
-            <a
-              href="#"
-              className="hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
-            >
-              Contact
+            <a href="#faq" className="hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+              FAQ
+            </a>
+            <a href="#changelog" className="hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+              Changelog
+            </a>
+            <a href="#support" className="hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+              Support
             </a>
           </div>
           <div className="text-xs text-slate-400 pt-6">
-            © 2026 TimeGPT. Not affiliated with OpenAI.
+            © {new Date().getFullYear()} TimeGPT. Not affiliated with OpenAI.
           </div>
         </div>
       </footer>
