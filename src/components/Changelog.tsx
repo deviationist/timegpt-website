@@ -65,13 +65,12 @@ export function Changelog() {
                   {release.date}
                 </time>
               </div>
-              <ul className="space-y-2">
+              <ul className="space-y-2 list-disc marker:text-indigo-500 pl-4">
                 {release.changes.map((change) => (
                   <li
                     key={change}
-                    className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed flex items-start gap-2"
+                    className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed pl-1"
                   >
-                    <span className="text-indigo-500 mt-1.5 shrink-0" aria-hidden="true">•</span>
                     {change}
                   </li>
                 ))}
