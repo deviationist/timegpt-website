@@ -71,19 +71,26 @@ export function Hero() {
           </a>
         </motion.div>
 
-        {/* Screenshot placeholder */}
+        {/* Demo video */}
         <motion.div
           className="mt-16 relative mx-auto max-w-3xl"
           initial={fade?.initial ?? { opacity: 0, y: 30 }}
           animate={fade?.animate ?? { opacity: 1, y: 0 }}
           transition={fade?.transition ?? { duration: 0.6, delay: 0.4 }}
         >
-          <div className="aspect-video rounded-2xl bg-slate-100 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
-            <div className="text-center text-slate-400 dark:text-slate-500">
-              <Clock className="w-12 h-12 mx-auto mb-3 opacity-50" aria-hidden="true" />
-              <p className="text-sm font-medium">Screenshot placeholder</p>
-            </div>
-          </div>
+          <video
+            className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl"
+            autoPlay={!reduced}
+            loop
+            muted
+            playsInline
+            poster="/placeholder.png"
+            aria-label="Demo of the TimeGPT Chrome extension adding timestamps to ChatGPT messages and conversations"
+          >
+            <source src="/example.webm" type="video/webm" />
+            <source src="/example.mp4" type="video/mp4" />
+            <img src="/placeholder.png" alt="TimeGPT extension showing timestamps in ChatGPT" className="w-full rounded-2xl" />
+          </video>
         </motion.div>
       </div>
     </section>
