@@ -60,6 +60,15 @@ function App() {
   const [isDark, toggleDark] = useDarkMode();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Scroll to hash target on initial load (sections don't exist yet when the browser first tries)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const el = document.querySelector(hash);
+      el?.scrollIntoView();
+    }
+  }, []);
+
   // Update URL hash on scroll
   useEffect(() => {
     const sections = sectionIds
@@ -75,6 +84,7 @@ function App() {
             const id = entry.target.id;
             if (window.location.hash !== `#${id}`) {
               history.replaceState(null, "", `#${id}`);
+              window.dispatchEvent(new HashChangeEvent("hashchange"));
             }
           }
         }
