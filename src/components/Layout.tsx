@@ -4,7 +4,7 @@ import { LogoHorizontal } from "./Logo";
 import { Moon, Sun, Download, Menu, X } from "lucide-react";
 import { useDarkMode } from "../hooks/useDarkMode";
 
-const CHROME_STORE_URL = "#";
+const CHROME_STORE_URL = "https://chromewebstore.google.com/detail/timegpt/klhlpngclnmhdnaofopfmdphbajeclfo";
 
 const navLinks = [
   { href: "/#features", label: "Features" },

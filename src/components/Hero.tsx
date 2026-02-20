@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { Download, Clock, MessageSquare } from "lucide-react";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
-const CHROME_STORE_URL = "#";
+const CHROME_STORE_URL = "https://chromewebstore.google.com/detail/timegpt/klhlpngclnmhdnaofopfmdphbajeclfo";
 
 export function Hero() {
   const reduced = useReducedMotion();
