@@ -47,9 +47,47 @@ const navLinks = [
   { href: "#faq", label: "FAQ" },
 ];
 
+const sectionIds = [
+  "features",
+  "how-it-works",
+  "privacy",
+  "faq",
+  "changelog",
+  "support",
+];
+
 function App() {
   const [isDark, toggleDark] = useDarkMode();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Update URL hash on scroll
+  useEffect(() => {
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            if (window.location.hash !== `#${id}`) {
+              history.replaceState(null, "", `#${id}`);
+            }
+          }
+        }
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+
+    for (const section of sections) {
+      observer.observe(section);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300">
