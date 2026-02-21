@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 export function PrivacyPolicyPage() {
   useEffect(() => {
+    document.title = "Privacy Policy — TimeGPT";
     window.scrollTo(0, 0);
   }, []);
 
