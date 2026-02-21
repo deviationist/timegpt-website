@@ -34,6 +34,14 @@
     <meta name="twitter:description" content="Adds timestamps to ChatGPT messages and conversations — because time matters." />
     <meta name="twitter:image" content="https://timegpt.ichiva.no/og-image.png" />
     <script defer data-domain="timegpt.ichiva.no" src="https://plausible.ichiva.no/js/script.hash.outbound-links.js"></script>
+    <script>
+      (function() {
+        var t = localStorage.getItem('theme');
+        if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
