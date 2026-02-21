@@ -17,6 +17,10 @@ const sectionIds = [
 ];
 
 export function LandingPage() {
+  useEffect(() => {
+    document.title = "TimeGPT — Timestamps for ChatGPT";
+  }, []);
+
   // Scroll to hash target on initial load
   useEffect(() => {
     const hash = window.location.hash;

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { LandingPage } from "./pages/LandingPage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -22,6 +23,7 @@ function App() {
         <Route element={<Layout />}>
           <Route index element={<LandingPage />} />
           <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
