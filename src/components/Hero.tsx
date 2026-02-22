@@ -11,7 +11,7 @@ export function Hero() {
     : null;
 
   return (
-    <section className="relative pt-20 pb-24 md:pt-32 md:pb-36 overflow-hidden">
+    <section id="hero" className="relative pt-20 pb-24 md:pt-32 md:pb-36 overflow-hidden">
       {/* Background gradients */}
       <div className="absolute top-0 inset-x-0 h-[600px] overflow-hidden pointer-events-none -z-10" aria-hidden="true">
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-indigo-500/10 dark:bg-indigo-500/5 blur-[120px] rounded-full" />
