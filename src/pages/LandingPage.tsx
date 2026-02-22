@@ -32,7 +32,8 @@ export function LandingPage() {
 
   // Update URL hash on scroll
   useEffect(() => {
-    const sections = sectionIds
+    const allIds = ["hero", ...sectionIds];
+    const sections = allIds
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
 
@@ -43,7 +44,12 @@ export function LandingPage() {
         for (const entry of entries) {
           if (entry.isIntersecting) {
             const id = entry.target.id;
-            if (window.location.hash !== `#${id}`) {
+            if (id === "hero") {
+              if (window.location.hash) {
+                history.replaceState(null, "", window.location.pathname);
+                window.dispatchEvent(new HashChangeEvent("hashchange"));
+              }
+            } else if (window.location.hash !== `#${id}`) {
               history.replaceState(null, "", `#${id}`);
               window.dispatchEvent(new HashChangeEvent("hashchange"));
             }

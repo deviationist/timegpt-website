@@ -29,7 +29,17 @@ export function Layout() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 backdrop-blur-md border-b bg-white/80 dark:bg-slate-950/80 border-slate-200 dark:border-slate-800 transition-colors duration-300">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link to="/" className="shrink-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" aria-label="TimeGPT — Back to top">
+          <Link
+            to="/"
+            className="shrink-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            aria-label="TimeGPT — Back to top"
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              if (window.location.hash) {
+                history.replaceState(null, "", window.location.pathname);
+              }
+            }}
+          >
             <LogoHorizontal size={28} />
           </Link>
 
