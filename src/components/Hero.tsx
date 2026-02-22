@@ -79,7 +79,7 @@ export function Hero() {
           transition={fade?.transition ?? { duration: 0.6, delay: 0.4 }}
         >
           <video
-            className="w-full rounded-2xl border p-px pl-0.5 pr-0 border-slate-200 dark:border-slate-700 shadow-xl"
+            className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-950 shadow-xl"
             autoPlay={!reduced}
             loop
             muted
