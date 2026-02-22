@@ -1,10 +1,7 @@
-import { useEffect } from "react";
+import { usePageMeta } from "../hooks/usePageMeta";
 
 export function PrivacyPolicyPage() {
-  useEffect(() => {
-    document.title = "Privacy Policy — TimeGPT";
-    window.scrollTo(0, 0);
-  }, []);
+  usePageMeta({ title: "Privacy Policy — TimeGPT", path: "/privacy-policy" });
 
   return (
     <main id="main-content" className="py-16 sm:py-24">
