@@ -18,7 +18,7 @@ export function Hero() {
         <div className="absolute top-48 left-1/3 -translate-x-1/2 w-[600px] h-[600px] bg-teal-500/10 dark:bg-teal-500/5 blur-[100px] rounded-full" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 text-center">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
         <motion.div
           initial={fade?.initial ?? { opacity: 0, y: 20 }}
           animate={fade?.animate ?? { opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ export function Hero() {
           transition={fade?.transition ?? { duration: 0.6, delay: 0.4 }}
         >
           <video
-            className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-950 shadow-xl"
+            className="w-full rounded-lg p-1 sm:p-0 sm:rounded-2xl border :border-slate-200 dark:border-slate-700 bg-slate-950 shadow-xl"
             autoPlay={!reduced}
             loop
             muted
