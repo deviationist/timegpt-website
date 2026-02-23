@@ -134,9 +134,9 @@ export function Layout() {
             <a href="/#changelog" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               Changelog
             </a>
-            <a href="/#support" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <Link to="/support" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               Support
-            </a>
+            </Link>
             <Link to="/privacy-policy" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               Privacy Policy
             </Link>

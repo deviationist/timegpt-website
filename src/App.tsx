@@ -9,6 +9,7 @@ import {
 import { Layout } from "./components/Layout";
 import { LandingPage } from "./pages/LandingPage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
+import { SupportPage } from "./pages/SupportPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 
 function ScrollToTop() {
@@ -40,6 +41,7 @@ function App() {
         <Route element={<Layout />}>
           <Route index element={<LandingPage />} />
           <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
+          <Route path="support" element={<SupportPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
