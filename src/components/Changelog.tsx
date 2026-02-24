@@ -1,5 +1,7 @@
+"use client";
+
 import { motion } from "motion/react";
-import { useReducedMotion } from "../hooks/useReducedMotion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const releases = [
   {

@@ -1,9 +1,6 @@
 import { Github, Mail, ExternalLink } from "lucide-react";
-import { usePageMeta } from "../hooks/usePageMeta";
 
-export function SupportPage() {
-  usePageMeta({ title: "Support — TimeGPT", path: "/support" });
-
+export function SupportContent() {
   return (
     <main id="main-content" className="py-16 sm:py-24">
       <div className="max-w-3xl mx-auto px-6">

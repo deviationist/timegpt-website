@@ -1,10 +1,11 @@
+"use client";
+
 import { useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import Link from "next/link";
 import { LogoHorizontal } from "./Logo";
 import { Moon, Sun, Download, Menu, X } from "lucide-react";
-import { useDarkMode } from "../hooks/useDarkMode";
-
-const CHROME_STORE_URL = "https://chromewebstore.google.com/detail/timegpt/klhlpngclnmhdnaofopfmdphbajeclfo";
+import { useDarkMode } from "@/hooks/useDarkMode";
+import { CHROME_STORE_URL } from "@/lib/constants";
 
 const navLinks = [
   { href: "/#features", label: "Features" },
@@ -12,13 +13,16 @@ const navLinks = [
   { href: "/#faq", label: "FAQ" },
 ];
 
-const mobileOnlyNavLinks = [
-  { href: "/#changelog", label: "Changelog" },
-  { to: "/support", label: "Support" },
-  { to: "/privacy-policy", label: "Privacy Policy" },
+const mobileOnlyNavLinks: Array<
+  | { type: "hash"; href: string; label: string }
+  | { type: "route"; href: string; label: string }
+> = [
+  { type: "hash", href: "/#changelog", label: "Changelog" },
+  { type: "route", href: "/support", label: "Support" },
+  { type: "route", href: "/privacy-policy", label: "Privacy Policy" },
 ];
 
-export function Layout() {
+export function Layout({ children }: { children: React.ReactNode }) {
   const [isDark, toggleDark] = useDarkMode();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -33,10 +37,10 @@ export function Layout() {
       </a>
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 backdrop-blur-md border-b bg-white/80 dark:bg-slate-950/80 border-slate-200 dark:border-slate-800 transition-colors duration-300">
+      <nav aria-label="Main navigation" className="sticky top-0 z-50 backdrop-blur-md border-b bg-white/80 dark:bg-slate-950/80 border-slate-200 dark:border-slate-800 transition-colors duration-300">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link
-            to="/"
+            href="/"
             className="shrink-0 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             aria-label="TimeGPT — Back to top"
             onClick={() => {
@@ -55,7 +59,7 @@ export function Layout() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-lg px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 {link.label}
               </a>
@@ -73,7 +77,8 @@ export function Layout() {
 
             <a
               href={CHROME_STORE_URL}
-              className="hidden sm:inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              rel="noopener noreferrer"
+              className="hidden sm:inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               <Download className="w-4 h-4" aria-hidden="true" />
               Add to Chrome
@@ -93,25 +98,24 @@ export function Layout() {
         </div>
 
         {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <div id="mobile-menu" className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-6 py-4 space-y-3">
+        <div id="mobile-menu" className={`md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-6 py-4 space-y-3 ${mobileMenuOpen ? "" : "hidden"}`}>
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="block text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-lg px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 {link.label}
               </a>
             ))}
             {mobileOnlyNavLinks.map((link) =>
-              link.to ? (
+              link.type === "route" ? (
                 <Link
-                  key={link.to}
-                  to={link.to}
+                  key={link.href}
+                  href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="block text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-lg px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   {link.label}
                 </Link>
@@ -120,7 +124,7 @@ export function Layout() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="block text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-lg px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   {link.label}
                 </a>
@@ -128,47 +132,47 @@ export function Layout() {
             )}
             <a
               href={CHROME_STORE_URL}
-              className="sm:hidden inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2"
+              rel="noopener noreferrer"
+              className="sm:hidden inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2"
             >
               <Download className="w-4 h-4" aria-hidden="true" />
               Add to Chrome
             </a>
           </div>
-        )}
       </nav>
 
-      <Outlet />
+      {children}
 
       {/* Footer */}
-      <footer className="py-12 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 transition-colors duration-300">
+      <footer aria-label="Site footer" className="py-12 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 transition-colors duration-300">
         <div className="max-w-6xl mx-auto px-6 text-center space-y-6">
           <div className="flex flex-col items-center gap-4">
             <LogoHorizontal size={24} />
-            <p className="text-sm text-slate-500 max-w-sm">
+            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm">
               Helping AI users keep track of time, one message at a time.
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-8 text-sm text-slate-500 dark:text-slate-400">
-            <a href="/#features" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <a href="/#features" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               Features
             </a>
-            <a href="/#how-it-works" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <a href="/#how-it-works" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               How It Works
             </a>
-            <a href="/#faq" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <a href="/#faq" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               FAQ
             </a>
-            <a href="/#changelog" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <a href="/#changelog" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               Changelog
             </a>
-            <Link to="/support" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <Link href="/support" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               Support
             </Link>
-            <Link to="/privacy-policy" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <Link href="/privacy-policy" className="hover:text-slate-700 dark:hover:text-slate-200 transition-colors rounded-lg px-2 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               Privacy Policy
             </Link>
           </div>
-          <div className="text-xs text-slate-400 pt-6">
+          <div className="text-xs text-slate-500 dark:text-slate-400 pt-6">
             © {new Date().getFullYear()} TimeGPT. Not affiliated with OpenAI.
           </div>
         </div>
