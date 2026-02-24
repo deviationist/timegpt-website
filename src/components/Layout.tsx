@@ -12,6 +12,12 @@ const navLinks = [
   { href: "/#faq", label: "FAQ" },
 ];
 
+const mobileOnlyNavLinks = [
+  { href: "/#changelog", label: "Changelog" },
+  { to: "/support", label: "Support" },
+  { to: "/privacy-policy", label: "Privacy Policy" },
+];
+
 export function Layout() {
   const [isDark, toggleDark] = useDarkMode();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -99,6 +105,27 @@ export function Layout() {
                 {link.label}
               </a>
             ))}
+            {mobileOnlyNavLinks.map((link) =>
+              link.to ? (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors rounded-lg px-2 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  {link.label}
+                </a>
+              )
+            )}
             <a
               href={CHROME_STORE_URL}
               className="sm:hidden inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-2"
