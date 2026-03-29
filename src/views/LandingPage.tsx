@@ -1,12 +1,13 @@
+"use client";
+
 import { useEffect } from "react";
-import { usePageMeta } from "../hooks/usePageMeta";
-import { Hero } from "../components/Hero";
-import { Features } from "../components/Features";
-import { HowItWorks } from "../components/HowItWorks";
-import { Privacy } from "../components/Privacy";
-import { FAQ } from "../components/FAQ";
-import { Changelog } from "../components/Changelog";
-import { Support } from "../components/Support";
+import { Hero } from "@/components/Hero";
+import { Features } from "@/components/Features";
+import { HowItWorks } from "@/components/HowItWorks";
+import { Privacy } from "@/components/Privacy";
+import { FAQ } from "@/components/FAQ";
+import { Changelog } from "@/components/Changelog";
+import { Support } from "@/components/Support";
 
 const sectionIds = [
   "features",
@@ -18,14 +19,11 @@ const sectionIds = [
 ];
 
 export function LandingPage() {
-  usePageMeta({ title: "TimeGPT — Timestamps for ChatGPT", path: "" });
-
   // Scroll to hash target on initial load
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash) {
-      const el = document.querySelector(hash);
-      el?.scrollIntoView();
+    const hash = window.location.hash.slice(1);
+    if (hash && sectionIds.includes(hash)) {
+      document.getElementById(hash)?.scrollIntoView();
     }
   }, []);
 

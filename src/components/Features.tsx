@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "motion/react";
 import {
   MessageSquare,
@@ -7,7 +9,7 @@ import {
   ToggleRight,
   RefreshCw,
 } from "lucide-react";
-import { useReducedMotion } from "../hooks/useReducedMotion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const features = [
   {

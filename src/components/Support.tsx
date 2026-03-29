@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
-import { useReducedMotion } from "../hooks/useReducedMotion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 export function Support() {
   const reduced = useReducedMotion();
@@ -31,7 +33,7 @@ export function Support() {
           transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.1 }}
         >
           <Link
-            to="/support"
+            href="/support"
             className="inline-flex items-center gap-2 bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Get Support

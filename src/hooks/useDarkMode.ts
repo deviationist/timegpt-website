@@ -1,13 +1,32 @@
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useSyncExternalStore } from "react";
+
+const STORAGE_KEY = "theme";
+const listeners = new Set<() => void>();
+
+function emitChange() {
+  for (const listener of listeners) listener();
+}
+
+function subscribe(callback: () => void) {
+  listeners.add(callback);
+  return () => listeners.delete(callback);
+}
+
+function getSnapshot(): boolean {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored === "dark") return true;
+  if (stored === "light") return false;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+
+function getServerSnapshot(): boolean {
+  return false;
+}
 
 export function useDarkMode() {
-  const [isDark, setIsDark] = useState(() => {
-    const stored = localStorage.getItem("theme");
-    if (stored === "dark") return true;
-    if (stored === "light") return false;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  });
+  const isDark = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
+  // Sync DOM class with current state
   useEffect(() => {
     const root = document.documentElement;
     if (isDark) {
@@ -19,13 +38,11 @@ export function useDarkMode() {
     }
   }, [isDark]);
 
-  const toggle = () => {
-    setIsDark((prev) => {
-      const next = !prev;
-      localStorage.setItem("theme", next ? "dark" : "light");
-      return next;
-    });
-  };
+  const toggle = useCallback(() => {
+    const next = !getSnapshot();
+    localStorage.setItem(STORAGE_KEY, next ? "dark" : "light");
+    emitChange();
+  }, []);
 
   return [isDark, toggle] as const;
 }

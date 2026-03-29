@@ -1,8 +1,4 @@
-import { usePageMeta } from "../hooks/usePageMeta";
-
-export function PrivacyPolicyPage() {
-  usePageMeta({ title: "Privacy Policy — TimeGPT", path: "/privacy-policy" });
-
+export function PrivacyPolicyContent() {
   return (
     <main id="main-content" className="py-16 sm:py-24">
       <div className="max-w-3xl mx-auto px-6">
@@ -81,6 +77,7 @@ export function PrivacyPolicyPage() {
                   className="text-indigo-600 dark:text-indigo-400 hover:underline"
                 >
                   Plausible Analytics
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
                 , a privacy-focused, cookie-free analytics tool. Plausible does
                 not use cookies, does not collect personal data, and is fully

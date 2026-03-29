@@ -1,8 +1,9 @@
+"use client";
+
 import { motion } from "motion/react";
 import { Download, Clock, MessageSquare } from "lucide-react";
-import { useReducedMotion } from "../hooks/useReducedMotion";
-
-const CHROME_STORE_URL = "https://chromewebstore.google.com/detail/timegpt/klhlpngclnmhdnaofopfmdphbajeclfo";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { CHROME_STORE_URL } from "@/lib/constants";
 
 export function Hero() {
   const reduced = useReducedMotion();
@@ -57,6 +58,7 @@ export function Hero() {
         >
           <a
             href={CHROME_STORE_URL}
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3.5 rounded-full text-base font-semibold transition-colors shadow-lg shadow-indigo-500/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             <Download className="w-5 h-5" aria-hidden="true" />
@@ -79,7 +81,7 @@ export function Hero() {
           transition={fade?.transition ?? { duration: 0.6, delay: 0.4 }}
         >
           <video
-            className="w-full rounded-lg p-1 sm:p-0 sm:rounded-2xl border :border-slate-200 dark:border-slate-700 bg-slate-950 shadow-xl"
+            className="w-full rounded-lg p-1 sm:p-0 sm:rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-950 shadow-xl"
             autoPlay={!reduced}
             loop
             muted

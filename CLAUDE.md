@@ -2,13 +2,13 @@
 
 ## What is this project?
 
-A promo/landing page for **TimeGPT**, a Chrome extension that adds timestamps to ChatGPT. Built with Vite, React 19, Tailwind CSS 4, Motion (Framer Motion), and Lucide icons.
+A promo/landing page for **TimeGPT**, a Chrome extension that adds timestamps to ChatGPT. Built with Next.js (App Router), React 19, Tailwind CSS 4, Motion (Framer Motion), and Lucide icons.
 
 ## Common tasks
 
 - **Dev server**: `npm run dev`
 - **Build**: `npm run build`
-- **Preview**: `npm run preview`
+- **Start**: `npm run start`
 - **Lint**: `npm run lint`
 
 ## About the extension

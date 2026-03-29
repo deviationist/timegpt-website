@@ -1,6 +1,8 @@
+"use client";
+
 import { motion } from "motion/react";
 import { Database, Search, Eye } from "lucide-react";
-import { useReducedMotion } from "../hooks/useReducedMotion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const steps = [
   {
